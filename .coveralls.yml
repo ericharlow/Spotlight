@@ -1,5 +1,5 @@
-repo_token: INZ2mjiOggmTmnBrdcYHASOfEOIYkPgLa
-
-notify:
-  webhooks:
-    - url: https://coveralls.io/webhook?repo_token=INZ2mjiOggmTmnBrdcYHASOfEOIYkPgLa
+#repo_token: INZ2mjiOggmTmnBrdcYHASOfEOIYkPgLa
+#
+#notify:
+#  webhooks:
+#    - url: https://coveralls.io/webhook?repo_token=INZ2mjiOggmTmnBrdcYHASOfEOIYkPgLa
