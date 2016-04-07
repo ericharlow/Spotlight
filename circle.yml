@@ -1,0 +1,17 @@
+machine:
+  java:
+    version:
+      oraclejdk7
+  environment:
+      ANDROID_HOME: /usr/local/android-sdk-linux
+      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx1024m -XX:+HeapDumpOnOutOfMemoryError -XX:MaxMetaspaceSize=512m"'
+dependencies:
+  override:
+    - echo y | android update sdk --no-ui --all --filter "4,extra-android-support,extra-google-m2repository,extra-android-m2repository"
+    - ANDROID_HOME=/usr/local/android-sdk-linux ./gradlew dependencies
+test:
+  override:
+    # copy the build outputs to artifacts
+    - cp -r Spotlight/build/outputs $CIRCLE_ARTIFACTS
+    # copy the test results to the test results directory.
+    - cp -r Spotlight/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
