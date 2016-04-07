@@ -4,6 +4,8 @@ machine:
     TERM: "dumb"
     ADB_INSTALL_TIMEOUT: "10"
     GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
+    COVERALLS_REPO_TOKEN: "INZ2mjiOggmTmnBrdcYHASOfEOIYkPgLa"
+    COVERALLS_PARALLEL: 'True'
 
 dependencies:
   pre:
@@ -28,3 +30,5 @@ test:
     - cp -r app/build/outputs $CIRCLE_ARTIFACTS
     # copy the test results to the test results directory.
     - cp -r app/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
+  post:
+    - coveralls
