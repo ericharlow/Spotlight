@@ -71,11 +71,14 @@ test:
     # collect logs from emulator
     - adb logcat -d > $CIRCLE_ARTIFACTS/logcat_emulator.txt
 
-#  post:
-#    - ./gradlew coveralls
+  post:
+    - ./gradlew jacocoFullReport coveralls
 
-  # report coverage to coveralls
-coverage:
-    branch: [master, rewrite]
-    commands:
-    - ./gradlew coveralls
+# Only executed if all tasks are successful
+#deployment:
+#
+#  # report coverage to coveralls
+#  coverage:
+#    branch: [master, rewrite]
+#    commands:
+#    - ./gradlew coveralls
