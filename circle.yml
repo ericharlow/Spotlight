@@ -13,6 +13,6 @@ dependencies:
 test:
   override:
     # copy the build outputs to artifacts
-    - cp -r Spotlight/build/outputs $CIRCLE_ARTIFACTS
+    #- cp -r Spotlight/build/outputs $CIRCLE_ARTIFACTS
     # copy the test results to the test results directory.
-    - cp -r Spotlight/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
+    #- cp -r Spotlight/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
