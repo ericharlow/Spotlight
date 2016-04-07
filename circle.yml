@@ -52,7 +52,6 @@ test:
     # copy test results
     - mv app/build/reports/tests/debug $CIRCLE_TEST_REPORTS/AppUnitTests
     - mv app/build/reports/androidTests/connected $CIRCLE_TEST_REPORTS/AndroidTests
-    - mv build/reports/jacoco/test/html $CIRCLE_TEST_REPORTS/CodeCoverageReport
 
     # copy lint report
     - mkdir $CIRCLE_TEST_REPORTS/Lint
@@ -73,13 +72,10 @@ test:
     - adb logcat -d > $CIRCLE_ARTIFACTS/logcat_emulator.txt
 
 #  post:
-#    - ./gradlew jacocoFullReport coveralls
-
-# Only executed if all tasks are successful
-deployment:
+#    - ./gradlew coveralls
 
   # report coverage to coveralls
-  coverage:
+coverage:
     branch: [master, rewrite]
     commands:
     - ./gradlew coveralls
