@@ -1,0 +1,19 @@
+language: java
+
+jdk:
+- oraclejdk8
+
+before_install:
+  - echo y | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+  - emulator -avd test -no-skin -no-audio -no-window &
+
+script: ./gradlew app:test
+
+before_script:
+  - ./ci/wait_for_emulator
+  - adb shell input keyevent 82 &
+
+script: ./gradlew build connectedCheck
+
+after_success:
+- ./gradlew jacocoFullReport coveralls
