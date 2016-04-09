@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Spotlight</string>
+    <string name="appName">Spotlight</string>
+    <string name="buttonTextNext">NEXT</string>
+    <string name="buttonTextNewActvity">New Activity</string>
+    <string name="buttonTextPress">PRESS ME</string>
+    <string name="switchTextDemo">SWITCH</string>
+    <string name="checkboxDemo">CHECKBOX</string>
 </resources>
