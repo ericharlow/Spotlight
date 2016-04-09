@@ -29,25 +29,22 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 /**
- * Created by ericharlow on 4/6/16.
+ * Created by ericharlow on 4/9/16.
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class MainActivityTests {
+public class DemoActivityTest {
     @Rule
-    public ActivityTestRule<MainActivity> mainActivityActivityTestRule = new ActivityTestRule<>(
-            MainActivity.class);
+    public ActivityTestRule<DemoActivity> demoActivityActivityTestRule = new ActivityTestRule<>(
+            DemoActivity.class);
 
     @Test
-    public void shouldClickOnAllFourCornerButtons() {
-        onView(withId(R.id.FirstButton)).perform(click());
-        onView(withId(R.id.SecondButton)).perform(click());
-        onView(withId(R.id.ThirdButton)).perform(click());
-        onView(withId(R.id.FourthButton)).perform(click());
+    public void shouldClickOnSwitch() {
+        onView(withId(R.id.DemoSwitch)).perform(click());
     }
 
     @Test
-    public void shouldClickOnNewActivityButton() {
-        onView(withId(R.id.NewActivity)).perform(click());
+    public void shouldClickOnCheckbox() {
+        onView(withId(R.id.checkBox)).perform(click());
     }
 }

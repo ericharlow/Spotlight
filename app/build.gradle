@@ -16,6 +16,11 @@ android {
         com.android.ddmlib.DdmPreferences.setTimeOut(60000)
     }
     buildTypes {
+        buildTypes {
+            debug {
+                testCoverageEnabled true
+            }
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

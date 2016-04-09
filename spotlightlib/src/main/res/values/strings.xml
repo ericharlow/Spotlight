@@ -16,4 +16,6 @@
 
 <resources>
     <string name="appName">Spotlightlib</string>
+    <string name="text_OK">OK</string>
+    <string name="text_never_again">Never show again</string>
 </resources>
