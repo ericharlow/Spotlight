@@ -20,45 +20,28 @@ package com.ericharlow.spotlightlib;
  * Created by ericharlow on 4/9/16.
  */
 public class SpotlightPoint {
-    int x = 0;
-    int y = 0;
+    public boolean usePreferredSize;
+    public int preferredWidth = 0;
+    public int preferredHeight = 0;
+    public String text;
+    int x;
+    int y;
 
-    /** The text associated to this point. */
-    private String text;
+    protected SpotlightPoint() {}
 
-    private boolean usePreferredSize = false;
-    private int preferredWidth;
-    private int preferredHeight;
+    public static class Builder {
+        private SpotlightPoint spotlightPoint;
 
-    public String getText() {
-        return text;
-    }
+        public Builder() {
+            spotlightPoint = new SpotlightPoint();
+            spotlightPoint.text="Default Point";
+            spotlightPoint.usePreferredSize = false;
+            spotlightPoint.x = 100;
+            spotlightPoint.y = 100;
+        }
 
-    public void setText( String text ) {
-        this.text = text;
-    }
-
-    public int getPreferredWidth() {
-        return preferredWidth;
-    }
-
-    public void setPreferredWidth(int preferedWidth) {
-        this.preferredWidth = preferedWidth;
-    }
-
-    public int getPreferredHeight() {
-        return preferredHeight;
-    }
-
-    public void setPreferredHeight(int preferedHeight) {
-        this.preferredHeight = preferedHeight;
-    }
-
-    public boolean doUsePreferredSize() {
-        return usePreferredSize;
-    }
-
-    public void setUsePreferredSize(boolean usePreferredSize) {
-        this.usePreferredSize = usePreferredSize;
+        public SpotlightPoint build() {
+            return spotlightPoint;
+        }
     }
 }

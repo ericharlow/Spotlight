@@ -53,6 +53,7 @@ dependencies {
 }
 
 coveralls {
+    sourceDirs = files('spotlightlib/src/main/java').flatten()
     jacocoReportPath = "${buildDir}/reports/coverage/debug/report.xml"
 }
 

@@ -90,7 +90,7 @@ public class DefaultDrawViewAdapter implements DrawViewAdapter {
     }
 
     private static Drawable initializeDefaultDrawable(Context context) {
-        return context.getResources().getDrawable( R.drawable.ic_lockscreen_handle );
+        return context.getResources().getDrawable(R.drawable.ic_lockscreen_handle);
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
@@ -127,9 +127,9 @@ public class DefaultDrawViewAdapter implements DrawViewAdapter {
         int height = drawable.getIntrinsicHeight();
         //experimental
         Drawable localCopy = drawable;
-        if (point.doUsePreferredSize()) {
-            width = point.getPreferredWidth();
-            height = point.getPreferredHeight();
+        if (point.usePreferredSize) {
+            width = point.preferredWidth;
+            height = point.preferredHeight;
             if (drawable instanceof GradientDrawable) {
                 localCopy = drawable.getConstantState().newDrawable().mutate();
                 ((GradientDrawable) localCopy).setSize(width, height);
@@ -153,7 +153,7 @@ public class DefaultDrawViewAdapter implements DrawViewAdapter {
 
     @Override
     public Layout getTextLayoutAt( int position ) {
-        String text = getListPoint(position).getText();
+        String text = getListPoint(position).text;
         Rect bounds = new Rect();
         textPaint.getTextBounds( text, 0, text.length(), bounds );
 
@@ -176,6 +176,6 @@ public class DefaultDrawViewAdapter implements DrawViewAdapter {
 
     @Override
     public String getTextAt(int position) {
-        return getListPoint(position).getText();
+        return getListPoint(position).text;
     }
 }

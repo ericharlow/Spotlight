@@ -16,20 +16,31 @@
 
 package com.ericharlow.spotlightlib;
 
+import android.content.Context;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
+import android.test.UiThreadTest;
+import android.test.suitebuilder.annotation.SmallTest;
+
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * Created by ericharlow on 4/9/16.
+ * Created by ericharlow on 4/10/16.
  */
-public class SpotlightPointTests {
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class DrawViewTests {
 
     @Test
-    public void shouldCreateASpotlightPoint() {
-        SpotlightPoint point = new SpotlightPoint();
-        assertThat(point, notNullValue());
+    @UiThreadTest
+    public void shouldCreateDrawView() {
+        Context context = InstrumentationRegistry.getTargetContext();
+        DrawView drawView = new DrawView(context);
+        assertThat(drawView, notNullValue());
     }
 
 }
