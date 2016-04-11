@@ -5,7 +5,8 @@ A library to spotlight new features in an android application
 [![Coverage Status](https://coveralls.io/repos/github/ericharlow/Spotlight/badge.svg?branch=master)](https://coveralls.io/github/ericharlow/Spotlight?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/31528b1052ce499dbb5c8575d8f2c758)](https://www.codacy.com/app/eric-b-harlow/Spotlight)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://www.tldrlegal.com/l/apache2)
-
+[![Profile](https://static.licdn.com/scds/common/u/img/webpromo/btn_liprofile_blue_80x15.png)](https://www.linkedin.com/pub/eric-harlow/24/138/850)
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](paypal.me/ericharlow)
 
 
 # License
