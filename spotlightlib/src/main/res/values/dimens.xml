@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="image_width">@dimen/width_xhdpi</dimen>
-    <dimen name="image_height">@dimen/height_xhdpi</dimen>
+    <dimen name="image_width">@dimen/width_hdpi</dimen>
+    <dimen name="image_height">@dimen/height_hdpi</dimen>
 
     <dimen name="width_mdpi">108dp</dimen>
     <dimen name="height_mdpi">108dp</dimen>

@@ -93,7 +93,7 @@ public class CoverFragment extends DialogFragment {
 
         View v = inflater.inflate(resourceId, null);
 
-        View temp = v.findViewById( R.id.drawView_move_content_demo );
+        View temp = v.findViewById( R.id.drawView );
         if (temp != null) {
             drawView = (DrawView) temp;
         }

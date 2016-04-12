@@ -17,16 +17,17 @@
 package com.ericharlow.spotlightlib;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Point;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.UiThreadTest;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.text.Layout;
+import android.util.AttributeSet;
+import android.util.Xml;
 import android.view.View;
 
 import org.junit.Before;
@@ -34,16 +35,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
+import org.xmlpull.v1.XmlPullParser;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.argThat;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -65,6 +68,7 @@ public class DrawViewTests {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         drawView = new DrawView(context);
+        defaultDrawViewAdapterMock = getFullyMockedDefaultDrawViewAdapter("test point text");
     }
 
     @Test
@@ -82,9 +86,6 @@ public class DrawViewTests {
 
     @Test
     public void shouldDrawText() {
-        // setup
-        when(defaultDrawViewAdapterMock.getTextPointAt(anyInt())).thenReturn(new Point());
-        when(defaultDrawViewAdapterMock.getTextLayoutAt(anyInt())).thenReturn(mock(Layout.class));
         drawView.setDrawViewAdapter(defaultDrawViewAdapterMock);
 
         drawView.drawText(0, canvasMock);
@@ -93,7 +94,7 @@ public class DrawViewTests {
 
     @Test
     public void shouldDrawDrawable() {
-        // PowerMock is probably better than this confusion for a final method stub
+        // PowerMock is probably better than this confusion for overcoming a final method stub
         Drawable drawableStub = new Drawable() {
             public int drawCount = 0;
             @Override
@@ -121,7 +122,6 @@ public class DrawViewTests {
                 return 0;
             }
         };
-        assertThat("drawable has bounds", drawableStub.getBounds(), notNullValue());
 
         when(defaultDrawViewAdapterMock.getDrawableAt(anyInt())).thenReturn(drawableStub);
         drawView.setDrawViewAdapter(defaultDrawViewAdapterMock);
@@ -132,21 +132,117 @@ public class DrawViewTests {
 
     @Test
     public void shouldDrawPoint() {
-        // setup
         String text = "test point";
-        when(defaultDrawViewAdapterMock.getTextPointAt(anyInt())).thenReturn(new Point());
-        when(defaultDrawViewAdapterMock.getTextLayoutAt(anyInt())).thenReturn(mock(Layout.class));
-        when(defaultDrawViewAdapterMock.getTextAt(anyInt())).thenReturn(text);
-        drawView.setDrawViewAdapter(defaultDrawViewAdapterMock);
+        DefaultDrawViewAdapter drawViewAdapter = getFullyMockedDefaultDrawViewAdapter(text);
+        drawView.setDrawViewAdapter(drawViewAdapter);
 
         drawView.drawPoint(0, canvasMock);
         assertContentDescription(drawView, text);
+    }
+
+    @Test
+    public void shouldCreateDrawViewWithAttributeSet() {
+        Resources resources = context.getResources();
+        XmlPullParser parser = resources.getXml(R.xml.drawviewtests);
+        AttributeSet attributes = Xml.asAttributeSet(parser);
+
+        DrawView drawView = new DrawView(context, attributes);
+        assertThat("draw view is drawing one point at a time", drawView.isDrawingOnePointAtATime(), is(true));
+    }
+
+    @Test
+    public void shouldDrawOnePointAtATime() {
+        drawView.setDrawViewAdapter(defaultDrawViewAdapterMock);
+        drawView.setDrawingOnePointAtATime(true);
+        DrawView drawViewSpy = spy(drawView);
+        drawViewSpy.onDraw(canvasMock);
+        verify(drawViewSpy, times(1)).drawPoint(anyInt(), any(Canvas.class));
+    }
+
+    @Test
+    public void shouldDrawSecondPointWithOnePointAtATime() {
+        when(defaultDrawViewAdapterMock.getPointsCount()).thenReturn(5);
+        drawView.setDrawViewAdapter(defaultDrawViewAdapterMock);
+        drawView.setDrawingOnePointAtATime(true);
+        drawView.showNextPoint();
+
+        DrawView drawViewSpy = spy(drawView);
+        drawViewSpy.onDraw(canvasMock);
+        verify(drawViewSpy, times(1)).drawPoint(anyInt(), any(Canvas.class));
+    }
+
+    @Test
+    public void shouldDrawUpToCurrentPoint() {
+        when(defaultDrawViewAdapterMock.getPointsCount()).thenReturn(5);
+        drawView.setDrawViewAdapter(defaultDrawViewAdapterMock);
+        drawView.showNextPoint();
+        drawView.showNextPoint();
+        drawView.showNextPoint();
+
+        DrawView drawViewSpy = spy(drawView);
+        drawViewSpy.onDraw(canvasMock);
+        verify(drawViewSpy, times(4)).drawPoint(anyInt(), any(Canvas.class));
+    }
+
+    @Test
+    public void shouldDrawAllThePointsAfterAnimation() {
+        when(defaultDrawViewAdapterMock.getPointsCount()).thenReturn(3);
+        drawView.setDrawViewAdapter(defaultDrawViewAdapterMock);
+        drawView.setShowingAllPointsAtTheEndOfAnimation(true);
+        drawView.showNextPoint();
+        drawView.showNextPoint();
+
+        DrawView drawViewSpy = spy(drawView);
+        drawViewSpy.onDraw(canvasMock);
+        verify(drawViewSpy, times(3)).drawPoint(anyInt(), any(Canvas.class));
+    }
+
+    private DefaultDrawViewAdapter getFullyMockedDefaultDrawViewAdapter(String pointText) {
+        DefaultDrawViewAdapter drawViewAdapter = mock(DefaultDrawViewAdapter.class);
+        when(drawViewAdapter.getTextPointAt(anyInt())).thenReturn(new Point());
+        when(drawViewAdapter.getTextLayoutAt(anyInt())).thenReturn(mock(Layout.class));
+        when(drawViewAdapter.getTextAt(anyInt())).thenReturn(pointText);
+        // PowerMock is probably better than this confusion for overcoming a final method stub
+        Drawable drawableStub = new Drawable() {
+            public int drawCount = 0;
+            @Override
+            public void draw(Canvas canvas) {
+                drawCount++;
+            }
+
+            @Override
+            public void setAlpha(int alpha) {
+
+            }
+
+            @Override
+            public void setColorFilter(ColorFilter colorFilter) {
+
+            }
+
+            @Override
+            public int getOpacity() {
+                return drawCount;
+            }
+
+            @Override
+            public int getIntrinsicWidth() {
+                return 0;
+            }
+        };
+
+        when(drawViewAdapter.getDrawableAt(anyInt())).thenReturn(drawableStub);
+        return drawViewAdapter;
     }
 
     private void assertContentDescription(View v, String description) {
         CharSequence contentDescription = drawView.getContentDescription();
         assertThat("content description", contentDescription, notNullValue());
         assertThat("content description", contentDescription.toString(), equalTo(description));
+    }
+
+    private void assertPointDrawn() {
+
     }
 
 }

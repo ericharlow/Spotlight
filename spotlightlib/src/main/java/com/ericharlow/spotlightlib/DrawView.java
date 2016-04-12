@@ -59,7 +59,7 @@ public class DrawView extends View {
 
     private DrawViewAdapter drawViewAdapter;
     private int handlerType;
-    private AnimatorHandler handler;
+//    private AnimatorHandler handler;
     private int currentPointPositionToDisplay = 0;
     private long delayBetweenPoints;
     private boolean isShowingAllPointsAtTheEndOfAnimation;
@@ -94,11 +94,18 @@ public class DrawView extends View {
             underTextPaint.setAlpha( a.getInt(R.styleable.DrawView_underTextPaintAlpha, 150) );
 
             isShowingAllPointsAtTheEndOfAnimation = a.getBoolean(R.styleable.DrawView_isShowingAllPointsAtTheEndOfAnimation, true);
-            isDrawingOnePointAtATime = a.getBoolean(R.styleable.DrawView_isDrawingOnePointAtATime, false);
+            isDrawingOnePointAtATime = a.getBoolean(R.styleable.DrawView_isDrawingOnePointAtATime, true);
             delayBetweenPoints = a.getInt(R.styleable.DrawView_delayBetweenPoints, (int) DELAY_BETWEEN_POINTS);
             handlerType = a.getInt(R.styleable.DrawView_handlerType, 1);
             initializeHandler(handlerType);
             a.recycle();
+        } else {
+            drawViewAdapter = new DefaultDrawViewAdapter(context, null, new TextPaint(), null);
+            underTextPaint = new Paint();
+            isShowingAllPointsAtTheEndOfAnimation = false;
+            isDrawingOnePointAtATime = false;
+            handlerType = 1;
+            initializeHandler(handlerType);
         }
     }
 
@@ -151,25 +158,25 @@ public class DrawView extends View {
      * Restarts the animation from the beginning.
      */
     public void resetAnimation() {
-        handler.removeMessages( AnimatorHandler.ANIMATION_MESSAGE_ID );
-        currentPointPositionToDisplay = 0;
-        if ( animationListener != null ) {
-            animationListener.onAnimationStart( null );
-        }
-        handler.sendEmptyMessageDelayed( AnimatorHandler.ANIMATION_MESSAGE_ID, delayBetweenPoints );
+//        handler.removeMessages( AnimatorHandler.ANIMATION_MESSAGE_ID );
+//        currentPointPositionToDisplay = 0;
+//        if ( animationListener != null ) {
+//            animationListener.onAnimationStart( null );
+//        }
+//        handler.sendEmptyMessageDelayed( AnimatorHandler.ANIMATION_MESSAGE_ID, delayBetweenPoints );
     }
 
     /**
      * Restarts the animation from the beginning.
      */
     public void terminateAnimation() {
-        handler.removeMessages( AnimatorHandler.ANIMATION_MESSAGE_ID );
-        currentPointPositionToDisplay = getAdapterPointCount() - 1;
-        if ( animationListener != null ) {
-            animationListener.onAnimationEnd( null );
-        }
-        refreshDrawableState();
-        invalidate();
+//        handler.removeMessages( AnimatorHandler.ANIMATION_MESSAGE_ID );
+//        currentPointPositionToDisplay = getAdapterPointCount() - 1;
+//        if ( animationListener != null ) {
+//            animationListener.onAnimationEnd( null );
+//        }
+//        refreshDrawableState();
+//        invalidate();
     }
 
     private int getAdapterPointCount() {
@@ -255,16 +262,16 @@ public class DrawView extends View {
     }
 
     private void initializeHandler(int type) {
-        handler = new AnimatorHandler( this, delayBetweenPoints ); // since there are no null checks for handler
-
-        if (type == 1) {
-            handler.sendEmptyMessageDelayed();
-        } else if (type == 2) {
-
-        }
+//        handler = new AnimatorHandler( this, delayBetweenPoints ); // since there are no null checks for handler
+//
+//        if (type == 1) {
+//            handler.sendEmptyMessageDelayed();
+//        } else if (type == 2) {
+//
+//        }
     }
 
-    private void showNextPoint() {
+    protected void showNextPoint() {
 
         if ( currentPointPositionToDisplay < getAdapterPointCount() - 1 ) {
             currentPointPositionToDisplay++;
@@ -430,41 +437,41 @@ public class DrawView extends View {
             this.dispatchTouchHandler = dispatchTouchHandler;
     }
 
-    /**
-     * Animate the point to draw on screen.
-     *
-     * @author sni
-     *
-     */
-    private static final class AnimatorHandler extends Handler {
-        private static final int ANIMATION_MESSAGE_ID = 0;
-
-        private WeakReference< DrawView > weakReference;
-        private long delayBetweenPoints;
-
-        private AnimatorHandler( DrawView drawView, long delayBetweenPoints ) {
-            this.weakReference = new WeakReference< DrawView >( drawView );
-            this.delayBetweenPoints = delayBetweenPoints;
-        }
-
-        public void sendEmptyMessageDelayed() {
-            sendEmptyMessageDelayed( AnimatorHandler.ANIMATION_MESSAGE_ID, delayBetweenPoints );
-        }
-
-        @Override
-        public void handleMessage( Message msg ) {
-            super.handleMessage( msg );
-            if ( msg.what == ANIMATION_MESSAGE_ID ) {
-                if ( weakReference == null || weakReference.get() == null || weakReference.get().getDrawViewAdapter() == null ) {
-                    return;
-                }
-                DrawView drawView = weakReference.get();
-                drawView.showNextPoint();
-                sendEmptyMessageDelayed( AnimatorHandler.ANIMATION_MESSAGE_ID, delayBetweenPoints );
-            }
-
-        }
-
-    }
+//    /**
+//     * Animate the point to draw on screen.
+//     *
+//     * @author sni
+//     *
+//     */
+//    private static final class AnimatorHandler extends Handler {
+//        private static final int ANIMATION_MESSAGE_ID = 0;
+//
+//        private WeakReference< DrawView > weakReference;
+//        private long delayBetweenPoints;
+//
+//        private AnimatorHandler( DrawView drawView, long delayBetweenPoints ) {
+//            this.weakReference = new WeakReference< DrawView >( drawView );
+//            this.delayBetweenPoints = delayBetweenPoints;
+//        }
+//
+//        public void sendEmptyMessageDelayed() {
+//            sendEmptyMessageDelayed( AnimatorHandler.ANIMATION_MESSAGE_ID, delayBetweenPoints );
+//        }
+//
+//        @Override
+//        public void handleMessage( Message msg ) {
+//            super.handleMessage( msg );
+//            if ( msg.what == ANIMATION_MESSAGE_ID ) {
+//                if ( weakReference == null || weakReference.get() == null || weakReference.get().getDrawViewAdapter() == null ) {
+//                    return;
+//                }
+//                DrawView drawView = weakReference.get();
+//                drawView.showNextPoint();
+//                sendEmptyMessageDelayed( AnimatorHandler.ANIMATION_MESSAGE_ID, delayBetweenPoints );
+//            }
+//
+//        }
+//
+//    }
 
 }

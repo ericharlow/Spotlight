@@ -7,6 +7,20 @@ A library to spotlight new features in an android application
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://www.tldrlegal.com/l/apache2)
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/ericharlow)
 
+# Installation
+To be added to bintray/jcenter for one line build.gradle dependency include
+
+# Usage
+xml usage:
+    to be added
+code usage:
+    to be added
+    
+# Customization
+to be added
+
+# Experimental
+Everything is experimental right now.
 
 # License
 

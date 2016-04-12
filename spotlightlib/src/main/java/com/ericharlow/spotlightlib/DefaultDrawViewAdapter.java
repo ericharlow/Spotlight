@@ -28,6 +28,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.text.Layout;
 import android.text.Layout.Alignment;
 import android.text.StaticLayout;
@@ -66,7 +67,7 @@ public class DefaultDrawViewAdapter implements DrawViewAdapter {
                 listPoints);
     }
 
-    public DefaultDrawViewAdapter( Context context, Drawable drawable, TextPaint textPaint, List< SpotlightPoint > listPoints ) {
+    public DefaultDrawViewAdapter( Context context, Drawable drawable, @NonNull TextPaint textPaint, List< SpotlightPoint > listPoints ) {
         this.context = context;
         this.drawable = drawable;
         this.textPaint = textPaint;
@@ -146,7 +147,7 @@ public class DefaultDrawViewAdapter implements DrawViewAdapter {
 
     private SpotlightPoint getListPoint(int position) {
         if (position < 0 || listPoints == null || position >= listPoints.size()) {
-            return new SpotlightPoint();
+            return new SpotlightPoint.Builder().build();
         }
         return listPoints.get( position );
     }
