@@ -24,8 +24,8 @@ public class SpotlightPoint {
     public int preferredWidth = 0;
     public int preferredHeight = 0;
     public String text;
-    int x;
-    int y;
+    public int x;
+    public int y;
 
     protected SpotlightPoint() {}
 
@@ -40,6 +40,10 @@ public class SpotlightPoint {
             spotlightPoint.y = 100;
         }
 
+        public Builder withText(String text) {
+            spotlightPoint.text = text;
+            return this;
+        }
         public SpotlightPoint build() {
             return spotlightPoint;
         }
