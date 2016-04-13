@@ -7,6 +7,11 @@ A library to spotlight new features in an android application
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://www.tldrlegal.com/l/apache2)
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/ericharlow)
 
+# Preview
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ericharlow/Spotlight/gh-pages/Demo1.png" alt="Spotlight in action"/>
+</p>
+
 # Installation
 To be added to bintray/jcenter for one line build.gradle dependency include
 
