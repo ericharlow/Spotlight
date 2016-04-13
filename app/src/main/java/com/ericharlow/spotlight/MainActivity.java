@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewStub;
 
 import com.ericharlow.spotlightlib.CoverFragment;
@@ -35,7 +36,9 @@ public class MainActivity extends Activity {
                         new PrimaryDrawerItem(),
                         new SecondaryDrawerItem()
                 ).build();
-        startSpotlightDemo();
+
+        setSubContentView(R.layout.activity_main);
+//        startSpotlightDemo();
     }
 
     public void onFirstButtonClicked(View v) {
@@ -70,6 +73,11 @@ public class MainActivity extends Activity {
         // start CoverFragment
         CoverFragment coverFragment = CoverFragment.newInstance(points);
         coverFragment.show(getFragmentManager(), CoverFragment.TAG);
+    }
+
+    public void setSubContentView(int layoutResID) {
+        ViewGroup container = (ViewGroup) findViewById(R.id.FrameContainer);
+        getLayoutInflater().inflate(layoutResID, container, true);
     }
 
     protected Toolbar inflateToolbarContent() {
