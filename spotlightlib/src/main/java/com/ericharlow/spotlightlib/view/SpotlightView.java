@@ -14,21 +14,17 @@
  *  	limitations under the License.
  */
 
-package com.ericharlow.spotlightlib;
+package com.ericharlow.spotlightlib.view;
 
-import android.view.MotionEvent;
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.View;
 
 /**
- * Provide a way for Touch Events to be passed to other views.
- *
- * Created by ericharlow on 4/9/16.
+ * Created by ericharlow on 4/18/16.
  */
-public interface DispatchTouchHandler {
-    /**
-     * Send MotionEvents to a handler.
-     * Intend to send from a Fragment's custom semitranslucent view to the Activity beneath the Fragment.
-     * @param event - The motion event to be dispatched.
-     * @return True if the event was handled by the view, false otherwise.
-     */
-    public boolean sendTouchEvent(MotionEvent event);
+public class SpotlightView extends View {
+    public SpotlightView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
 }

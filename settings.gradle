@@ -1,1 +1,1 @@
-include ':app', ':spotlightlib'
+include ':app', ':spotlightlib', ':robodemolib'

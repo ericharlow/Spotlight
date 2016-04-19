@@ -16,20 +16,25 @@
 
 package com.ericharlow.spotlightlib;
 
-import org.junit.Test;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.support.test.InstrumentationRegistry;
 
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
+import org.junit.Before;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 /**
- * Created by ericharlow on 4/9/16.
+ * Created by ericharlow on 4/18/16.
  */
-public class SpotlightPointTests {
+public class ViewTest {
+    @Mock
+    Canvas canvasMock;
 
-    @Test
-    public void shouldCreateASpotlightPoint() {
-        SpotlightPoint point = new SpotlightPoint();
-        assertThat(point, notNullValue());
+    Context context = InstrumentationRegistry.getTargetContext();
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
     }
-
 }

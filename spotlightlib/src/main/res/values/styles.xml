@@ -1,5 +1,5 @@
 <resources>
-    <style name="Theme.RoboDemo" parent="@android:style/Theme.Light.NoTitleBar.Fullscreen">
+    <style name="Theme.Spotlight" parent="@android:style/Theme.Light.NoTitleBar.Fullscreen">
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">false</item>

@@ -16,27 +16,62 @@
 
 package com.ericharlow.spotlightlib;
 
-import android.support.test.runner.AndroidJUnit4;
-import android.test.UiThreadTest;
-import android.test.suitebuilder.annotation.SmallTest;
+import com.ericharlow.spotlightlib.handler.HandlerType;
+import com.ericharlow.spotlightlib.handler.TouchHandler;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.mock;
 
 /**
- * Created by ericharlow on 4/10/16.
+ * Created by ericharlow on 4/9/16.
  */
-@RunWith(AndroidJUnit4.class)
-@SmallTest
 public class SpotlightPointTests {
 
     @Test
-    @UiThreadTest
-    public void shouldCreateDefaultSpotlightPoint() {
+    public void shouldCreateADefaultSpotlightPoint() {
         SpotlightPoint spotlightPoint = new SpotlightPoint.Builder().build();
         assertThat("spotlightPoint text after default creation",spotlightPoint.text, notNullValue());
     }
+
+    @Test
+    public void shouldBuildASpotlightPointWithText() {
+        String text = new String("text point");
+        SpotlightPoint spotlightPoint = new SpotlightPoint.Builder()
+                .withText(text).build();
+
+        assertThat("spotlight point text", spotlightPoint.text, equalTo(text));
+    }
+
+    @Test
+    public void shouldBuildASpotlightPointWithCoordinates() {
+        SpotlightPoint spotlightPoint = new SpotlightPoint.Builder()
+                .withX(234)
+                .withY(123).build();
+
+        assertThat("spotlight point x location", spotlightPoint.x, is(234));
+        assertThat("spotlight point y location", spotlightPoint.y, is(123));
+    }
+
+    @Test
+    public void shouldBuildASpotlightPointWithTouchHandlerType() {
+        SpotlightPoint spotlightPoint = new SpotlightPoint.Builder()
+                .withTouchHandlerOfType(HandlerType.PASSTHROUGH).build();
+
+        assertThat("touch handler type", spotlightPoint.touchHandlerType, is(HandlerType.PASSTHROUGH));
+    }
+
+    @Test
+    public void shouldBuildASpotlightPointWithTouchHandler() {
+        TouchHandler touchHandler = mock(TouchHandler.class);
+        SpotlightPoint spotlightPoint = new SpotlightPoint.Builder()
+                .withTouchHandler(touchHandler).build();
+
+        assertThat("touch handler", spotlightPoint.touchHandler, equalTo(touchHandler));
+    }
+
 }

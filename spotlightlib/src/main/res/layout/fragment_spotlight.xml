@@ -20,7 +20,7 @@
     android:layout_height="fill_parent"
     android:background="#77000000"
     android:orientation="vertical"
-              tools:context="com.ericharlow.spotlightlib.CoverFragment">
+              tools:context=".SpotlightFragment">
 
     <com.ericharlow.spotlightlib.DrawView
         android:id="@+id/drawView"

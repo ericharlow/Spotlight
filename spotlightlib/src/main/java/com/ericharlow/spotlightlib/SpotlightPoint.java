@@ -16,18 +16,24 @@
 
 package com.ericharlow.spotlightlib;
 
+import com.ericharlow.spotlightlib.handler.HandlerType;
+import com.ericharlow.spotlightlib.handler.TouchHandler;
+
 /**
  * Created by ericharlow on 4/9/16.
  */
 public class SpotlightPoint {
-    public boolean usePreferredSize;
-    public int preferredWidth = 0;
-    public int preferredHeight = 0;
-    public String text;
     public int x;
     public int y;
+    public String text;
+    public HandlerType touchHandlerType;
+    public TouchHandler touchHandler;
 
-    protected SpotlightPoint() {}
+    //    public boolean usePreferredSize;
+//    public int preferredWidth = 0;
+//    public int preferredHeight = 0;
+
+    private SpotlightPoint() {}
 
     public static class Builder {
         private SpotlightPoint spotlightPoint;
@@ -35,15 +41,38 @@ public class SpotlightPoint {
         public Builder() {
             spotlightPoint = new SpotlightPoint();
             spotlightPoint.text="Default Point";
-            spotlightPoint.usePreferredSize = false;
             spotlightPoint.x = 100;
             spotlightPoint.y = 100;
+            spotlightPoint.touchHandlerType = HandlerType.PASSTHROUGH;
+            spotlightPoint.touchHandler = new TouchHandler() {};
         }
 
         public Builder withText(String text) {
             spotlightPoint.text = text;
             return this;
         }
+
+        public Builder withX(int x) {
+            spotlightPoint.x = x;
+            return this;
+        }
+
+        public Builder withY(int y) {
+            spotlightPoint.y = y;
+            return this;
+        }
+
+        public Builder withTouchHandlerOfType(HandlerType handlerType) {
+            spotlightPoint.touchHandlerType = handlerType;
+            // build a touch handler
+            return this;
+        }
+
+        public Builder withTouchHandler(TouchHandler handler) {
+            spotlightPoint.touchHandler = handler;
+            return this;
+        }
+
         public SpotlightPoint build() {
             return spotlightPoint;
         }

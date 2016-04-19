@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 
-import com.ericharlow.spotlightlib.CoverFragment;
+import com.ericharlow.spotlightlib.SpotlightFragment;
 import com.ericharlow.spotlightlib.SpotlightPoint;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -70,9 +70,9 @@ public class MainActivity extends Activity {
         spotlightPoint.y = 180;
         points.add(spotlightPoint);
 
-        // start CoverFragment
-        CoverFragment coverFragment = CoverFragment.newInstance(points);
-        coverFragment.show(getFragmentManager(), CoverFragment.TAG);
+        // start SpotlightFragment
+        SpotlightFragment coverFragment = SpotlightFragment.newInstance(points);
+        coverFragment.show(getFragmentManager(), SpotlightFragment.TAG);
     }
 
     public void setSubContentView(int layoutResID) {
